@@ -9,6 +9,7 @@
   <meta name="author" content="SitePoint">
 
   <link rel="stylesheet" href="css/styles.css?v=1.0">
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,38 +22,6 @@
         });
     };
 	
-	Amigo.createToken('sw-sharepoint', { userId: '1234' }, function (err, meta) {
-		if (err) {
-			console.warn(err);
-			return;
-		}
-	
-	//consume facebook data
-	Amigo.consumeToken('sw-sharepoint', { shareChannel: 'facebook' }, function (err, token) {
-    if (err) {
-        console.warn(err);
-        return;
-    }
-
-		console.info('Success! Consumed token: ' + token);
-	});
-
-		console.info('Success! Current shareToken is: ' + meta[0].token);
-	});
-
-	//comsume email data
-	
-	
-	Amigo.send('sw_touchpoint', { userId: '1234' }, function (err, meta) {
-		if (err) {
-			console.warn(err);
-			return;
-		}
-
-		console.info('Success! Referring share token is: ' + meta.token);
-		console.info('Advocate metadata is: ' + meta.metadata;
-	});
-
     (function (d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -61,30 +30,62 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'amigo-jssdk'));
 	
+	
+	var meta = [
+    {
+        sharepointName: 'swsharepoint',
+        token: 'abcdef123456',
+        alias: 'myalias',
+        queryParamName: 'ast',
+        abs: true
+    }
+	
+]
+console.log("hello" + meta.alias);
  </script>
 
 </head>
 
 <body>
+<div ng-app="">
 
-<h2> Advocacy Sharepoint </h2>
+	<h2> Advocacy Sharepoint </h2>
 
   <script src="js/scripts.js"></script>
 
   <p> go to <a href="touchpoint.html"> TouchPoint </a> </p>
   
-  <a href="touchpoint.html#sharetoken"> I advocate this message </a>
+  <a href="touchpoint.html"> I advocate this message </a>
   
   <ul>
-  <li> Share by Facebook </li>
-  <li> Share by Email </li>
+  <li> <a href="touchpoint.html" onclick="share">Share by Facebook</a> </li>
+  <li> <a href="touchpoint.html" onclick="share" >Share by Email</a> </li>
   </ul>
 
+
+<p>Enter Greeting Message : <input type="text" ng-model="greeting"></p>
   
-  <!-- implement a sharepoint -->
+    <h2> {{greeting}} {{meta.alias}}</h2>
+	
+  </form>
   
-  <!-- implement a touchpoint -->
-  
-  
+
+</div>
+    
   </body>
+  
+  <script>
+  function share() {
+    
+	Amigo.updateToken('abc123', {
+    userId: '1234',
+    email: 'john@smith.com',
+    metadata: {
+        userid: 9999 
+		}
+	});
+	$scope.username = Amigo.metadata.user.username
+	}
+ 
+  </script>
 </html>
