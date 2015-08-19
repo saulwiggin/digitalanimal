@@ -1,0 +1,90 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>My SharePoint Advocacy campaign</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  
+ <script type="text/javascript">
+    window.amigoAsyncInit = function () {
+        Amigo.init({
+            apiKey: '60d0bdc98d7aa94aa3a84e80a4906eb44c5398250d55129508378e0cf2a26f25'
+        });
+    };
+	
+	Amigo.createToken('sw-sharepoint', { userId: '1234' }, function (err, meta) {
+		if (err) {
+			console.warn(err);
+			return;
+		}
+	
+	//consume facebook data
+	Amigo.consumeToken('sw-sharepoint', { shareChannel: 'facebook' }, function (err, token) {
+    if (err) {
+        console.warn(err);
+        return;
+    }
+
+		console.info('Success! Consumed token: ' + token);
+	});
+
+		console.info('Success! Current shareToken is: ' + meta[0].token);
+	});
+
+	//comsume email data
+	
+	
+	Amigo.send('sw_touchpoint', { userId: '1234' }, function (err, meta) {
+		if (err) {
+			console.warn(err);
+			return;
+		}
+
+		console.info('Success! Referring share token is: ' + meta.token);
+		console.info('Advocate metadata is: ' + meta.metadata;
+	});
+
+    (function (d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//d22stxronnwc65.cloudfront.net/sdk-latest.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'amigo-jssdk'));
+	
+ </script>
+
+</head>
+
+<body>
+
+<h2> Advocacy Sharepoint </h2>
+
+  <script src="js/scripts.js"></script>
+
+  <p> go to <a href="touchpoint.html"> TouchPoint </a> </p>
+  
+  <a href="touchpoint.html#sharetoken"> I advocate this message </a>
+  
+  <ul>
+  <li> Share by Facebook </li>
+  <li> Share by Email </li>
+  </ul>
+
+  
+  <!-- implement a sharepoint -->
+  
+  <!-- implement a touchpoint -->
+  
+  
+  </body>
+</html>
