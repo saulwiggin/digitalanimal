@@ -8,17 +8,61 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-
+	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script src="C:\Users\Icarus\Documents\GitHub\amigo-js-sdk\src\sdk.js">
+ 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  
+      <script type="text/javascript">
+        window.amigoData = {
+    // Amigo data
+
+    // Either sharepointName OR touchpointName
+    // can be defined, not both.
+    sharepointName: 'homepage_article',
+    touchpointName: 'banner_view',
+
+    // User-related data
+    userId: 'uid1234',
+    username: 'johnsmith58',
+    email: 'john@smith.com',
+    name: 'John Smith',
+    facebookId: '1234',
+    twitterId: '21361816e863217',
+
+    shareChannel: 'twitter',    // only on token consumption,
+    shareTokenAlias: 'dave123',  // only on token creation
+
+    // Inside of the `metadata` property, you can define
+    // any metadata about the Sharepoint or Touchpoint.
+    metadata: {
+        transaction: {
+            currency: 'GBP',
+            amount: 50.99
+        },
+        product: {
+            id: 'GLP12345',
+            name: 'Gibson Les Paul',
+            colour: 'Tobacco Burst'
+        },
+        user: {
+            twitter_id: '21361816e863217'
+        },
+        somethingElse: {
+            myField: true,
+            myOtherField: 'value'
+        }
+    }
+}
+    </script>
  <script type="text/javascript">
     window.amigoAsyncInit = function () {
         Amigo.init({
-            apiKey: '60d0bdc98d7aa94aa3a84e80a4906eb44c5398250d55129508378e0cf2a26f25'
+            apiKey: '60d0bdc98d7aa94aa3a84e80a4906eb44c5398250d55129508378e0cf2a26f25',
+			autoSend: false,
+			debug: true
         });
     };
 	
@@ -41,7 +85,7 @@
     }
 	
 ]
-console.log("hello" + meta.alias);
+console.log("hello " + meta.alias);
  </script>
 
 </head>
@@ -55,11 +99,11 @@ console.log("hello" + meta.alias);
 
   <p> go to <a href="touchpoint.html"> TouchPoint </a> </p>
   
-  <a href="touchpoint.html"> I advocate this message </a>
+  <a href="touchpoint.html/login"> I advocate this message </a>
   
   <ul>
-  <li> <a href="touchpoint.html" onclick="share">Share by Facebook</a> </li>
-  <li> <a href="touchpoint.html" onclick="share" >Share by Email</a> </li>
+  <li> <a href="touchpoint.html" onclick="sharefacebook">Share by Facebook</a> </li>
+  <li> <a href="touchpoint.html" onclick="shareemail" >Share by Email</a> </li>
   </ul>
 
 
@@ -75,17 +119,31 @@ console.log("hello" + meta.alias);
   </body>
   
   <script>
-  function share() {
+  
+function sharefacebook() {
     
-	Amigo.updateToken('abc123', {
-    userId: '1234',
-    email: 'john@smith.com',
+	Amigo.updateToken('9999', {
+	shareChannel: 'facebook'
+    userId: '9999',
+    email: 'saulwiggin@googlemail.com',
     metadata: {
-        userid: 9999 
+        username: 'saulwiggin' 
 		}
 	});
+	
 	$scope.username = Amigo.metadata.user.username
-	}
+	
+}
+	
+function shareemail() {
+	
+	Amigo.consumeToken('abc123', {
+    shareChannel: 'email',
+    metadata: {
+        username: 'saulwiggin'
+		}
+	});
+}
  
   </script>
 </html>

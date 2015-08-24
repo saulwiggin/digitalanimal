@@ -17,6 +17,8 @@
     window.amigoAsyncInit = function () {
         Amigo.init({
             apiKey: '60d0bdc98d7aa94aa3a84e80a4906eb44c5398250d55129508378e0cf2a26f25'
+			// touch token initialised
+			autosend: true
         });
     };
 
@@ -28,6 +30,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'amigo-jssdk'));
 	
+	// read token data for embellishment
     function getpersonaldata() {
 	if (advocated == true) {
 		$scope.advocate = Amigo.metadata.username;
